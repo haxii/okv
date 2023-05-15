@@ -92,7 +92,14 @@ func (o *OKV) GetBatch(keys []string) ([]*KV, error) {
 }
 
 func (o *OKV) Del(keys []string) error {
-	return o.store.Del(keys)
+	if len(keys) == 0 {
+		return nil
+	}
+	pathList := make([]string, len(keys))
+	for i, key := range keys {
+		pathList[i] = o.Path(key)
+	}
+	return o.store.Del(pathList)
 }
 
 func (o *OKV) PutOne(key string, val []byte) error {
@@ -106,11 +113,13 @@ func (o *OKV) PutOne(key string, val []byte) error {
 
 	setErrChan := make(chan error)
 	go func() {
-		setErrChan <- o.store.Set(key, pr)
+		setErrChan <- o.store.Set(o.Path(key), pr)
 		close(setErrChan)
 	}()
 
-	_, err := gzip.NewWriter(pw).Write(val)
+	gzpw := gzip.NewWriter(pw)
+	_, err := gzpw.Write(val)
+	_ = gzpw.Close()
 	_ = pw.Close()
 	if saveErr := <-setErrChan; saveErr != nil {
 		return saveErr
@@ -121,6 +130,9 @@ func (o *OKV) PutOne(key string, val []byte) error {
 func (o *OKV) GetOne(key string) ([]byte, error) {
 	r, err := o.store.Get(o.Path(key))
 	if err != nil {
+		if o.store.IsNotExistErr(err) {
+			return nil, nil
+		}
 		return nil, err
 	}
 	defer r.Close()

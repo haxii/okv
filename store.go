@@ -4,6 +4,7 @@ import "io"
 
 type Store interface {
 	Set(key string, reader io.Reader) error
-	Get(Key string) (io.ReadCloser, error)
-	Del(Key []string) error
+	Get(key string) (io.ReadCloser, error)
+	Del(key []string) error
+	IsNotExistErr(error) bool
 }
