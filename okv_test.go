@@ -2,18 +2,18 @@ package okv
 
 import (
 	"fmt"
-	"os"
 	"testing"
 )
 
 func TestOKV(t *testing.T) {
-	if err := os.MkdirAll("/tmp/okv", 0777); err != nil {
-		t.Fatal(err)
-	}
-	store := NewFileStore("/tmp/okv")
+	//if err := os.MkdirAll("/tmp/okv", 0777); err != nil {
+	//	t.Fatal(err)
+	//}
+	//store := NewFileStore("/tmp/okv")
+	store := NewCOSStore("", "ap-shanghai", "", "")
 	okv := NewOKV(store, Config{
-		NameSpace:   "default",
-		FileName:    "file",
+		NameSpace:   "upload",
+		FileName:    "default",
 		FileType:    "bin",
 		GzCompress:  true,
 		WriteThread: 10,
