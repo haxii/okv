@@ -1,8 +1,5 @@
-module github.com/thor/okv
+module github.com/haxii/okv
 
-go 1.17
+go 1.16
 
-require (
-	github.com/haxii/task v0.1.0 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
-)
+require github.com/haxii/task v0.1.0
