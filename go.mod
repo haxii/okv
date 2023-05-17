@@ -1,4 +1,4 @@
-module github.com/haxii/okv
+module github.com/haxii/oss
 
 go 1.16
 
