@@ -1,4 +1,4 @@
-package okv
+package oss
 
 type Config struct {
 	NameSpace   string
