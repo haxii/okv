@@ -11,7 +11,7 @@ type OSS struct {
 	store      Store
 	pathPrefix string
 }
-
+git
 func NewOSS(store Store, pathPrefix string) *OSS {
 	return &OSS{store: store, pathPrefix: pathPrefix}
 }
