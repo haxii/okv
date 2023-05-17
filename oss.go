@@ -44,7 +44,7 @@ func (c *OSS) Get(filePath string) (io.ReadCloser, error) {
 	return c.store.Get(c.fullPath(filePath))
 }
 
-func (c *OSS) getByte(filePath string) ([]byte, error) {
+func (c *OSS) GetByte(filePath string) ([]byte, error) {
 	resp, err := c.Get(filePath)
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (c *OSS) getByte(filePath string) ([]byte, error) {
 }
 
 func (c *OSS) UnZip(filePath string, rename func(file *zip.File) string) (map[string][]byte, error) {
-	obj, err := c.getByte(filePath)
+	obj, err := c.GetByte(filePath)
 	if err != nil {
 		return nil, err
 	}
