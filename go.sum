@@ -1,3 +1,5 @@
+github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/haxii/task v0.1.0 h1:DVDlZKsmR1z8OfFJ9QnGuA/ys7Ss6AvbVfRR1MjXPIc=
 github.com/haxii/task v0.1.0/go.mod h1:NGFP3VLy7jaITRrCohNZdU2boEy1oHVXINU1me2IljU=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
