@@ -6,10 +6,12 @@ import (
 	"github.com/haxii/task"
 	"io"
 	"io/ioutil"
+	"net/url"
 	"path"
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 type KV struct {
@@ -162,6 +164,11 @@ func (o *OKV) Path(key string) string {
 		b.WriteString(".gz")
 	}
 	return b.String()
+}
+
+// PresignURL 上传(put)/下载(get)
+func (o *OKV) PresignURL(key string, method string, expired time.Duration) (*url.URL, error) {
+	return o.store.PresignURL(o.Path(key), method, expired)
 }
 
 func makeIndexList(len int) []string {
