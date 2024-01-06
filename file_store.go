@@ -1,10 +1,13 @@
 package oss
 
 import (
+	"errors"
 	"io"
 	"io/ioutil"
+	"net/url"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 type FileStore struct {
@@ -45,4 +48,8 @@ func (f *FileStore) Del(keys []string) error {
 		}
 	}
 	return nil
+}
+
+func (f *FileStore) PresignURL(key, method string, expired time.Duration) (*url.URL, error) {
+	return nil, errors.New("unsupported for FileStore")
 }
