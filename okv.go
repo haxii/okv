@@ -171,6 +171,17 @@ func (o *OKV) PresignURL(key string, method string, expired time.Duration) (*url
 	return o.store.PresignURL(o.Path(key), method, expired)
 }
 
+func (o *OKV) Upload(key string, reader io.Reader) error {
+	if !o.conf.GzCompress {
+		return o.store.Set(o.Path(key), reader)
+	}
+	gzReader, err := gzip.NewReader(reader)
+	if err != nil {
+		return err
+	}
+	defer gzReader.Close()
+	return o.store.Set(o.Path(key), gzReader)
+}
 func makeIndexList(len int) []string {
 	if len <= 0 {
 		return nil
