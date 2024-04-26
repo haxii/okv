@@ -4,7 +4,9 @@ import (
 	"archive/zip"
 	"bytes"
 	"io"
+	"net/url"
 	"path"
+	"time"
 )
 
 type OSS struct {
@@ -80,4 +82,9 @@ func (c *OSS) UnZip(filePath string, rename func(file *zip.File) string) (map[st
 		data[name] = b
 	}
 	return data, nil
+}
+
+// PresignURL 上传(put)/下载(get)
+func (c *OSS) PresignURL(path string, method string, expired time.Duration) (*url.URL, error) {
+	return c.store.PresignURL(c.fullPath(path), method, expired)
 }
