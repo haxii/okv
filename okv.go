@@ -105,8 +105,12 @@ func (o *OKV) Del(keys []string) error {
 }
 
 func (o *OKV) PutOne(key string, val []byte) error {
+	return o.PutOneReader(key, bytes.NewReader(val))
+}
+
+func (o *OKV) PutOneReader(key string, reader io.Reader) error {
 	if !o.conf.GzCompress {
-		return o.store.Set(o.Path(key), bytes.NewReader(val))
+		return o.store.Set(o.Path(key), reader)
 	}
 	pr, pw := io.Pipe()
 	defer func() {
@@ -120,7 +124,7 @@ func (o *OKV) PutOne(key string, val []byte) error {
 	}()
 
 	gzpw := gzip.NewWriter(pw)
-	_, err := gzpw.Write(val)
+	_, err := io.Copy(gzpw, reader)
 	_ = gzpw.Close()
 	_ = pw.Close()
 	if saveErr := <-setErrChan; saveErr != nil {
