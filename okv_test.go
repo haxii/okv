@@ -3,6 +3,7 @@ package oss
 import (
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -61,4 +62,12 @@ func TestOKV(t *testing.T) {
 		t.Log(key, string(bytes))
 	}
 
+	if err = okv.PutSingle("reader_put", strings.NewReader("The quick brown fox jumps")); err != nil {
+		t.Fatal(err)
+	}
+	val, err := okv.GetOne("reader_put")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("reader_put", string(val))
 }
