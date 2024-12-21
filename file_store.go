@@ -53,3 +53,7 @@ func (f *FileStore) Del(keys []string) error {
 func (f *FileStore) PresignURL(key, method string, expired time.Duration) (*url.URL, error) {
 	return nil, errors.New("unsupported for FileStore")
 }
+
+func (f *FileStore) GetURL(key string) *url.URL {
+	return nil
+}

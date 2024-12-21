@@ -175,6 +175,10 @@ func (o *OKV) PresignURL(key string, method string, expired time.Duration) (*url
 	return o.store.PresignURL(o.Path(key), method, expired)
 }
 
+func (o *OKV) GetURL(key string) *url.URL {
+	return o.store.GetURL(o.Path(key))
+}
+
 func makeIndexList(len int) []string {
 	if len <= 0 {
 		return nil
