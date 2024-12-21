@@ -12,4 +12,5 @@ type Store interface {
 	Del(key []string) error
 	IsNotExistErr(error) bool
 	PresignURL(key, method string, expired time.Duration) (*url.URL, error)
+	GetURL(key string) *url.URL
 }
